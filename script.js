@@ -22,7 +22,7 @@ const levels=[
 {type:'fake',title:'Controllo dell’intelligenza',text:'Premi il pulsante qui sotto per dimostrare di essere intelligente.',label:'NON PREMERMI',wrong:'Hai premuto il pulsante. Interessante definizione di intelligenza.'},
 {type:'captcha',title:'Analisi comportamentale',text:'Abbiamo registrato la tua scelta precedente.',label:'Non sono un robot',weird:true},
 
-{type:'choice',title:'Domanda importantissima',text:'Quale di queste azioni compierebbe un vero essere umano?',choices:['Continuare a fare CAPTCHA per una gift card','Chiudere questa pagina e vivere serenamente','Chiedersi perché esiste questa pagina','Tutte le precedenti, ma continuare comunque']},
+{type:'choice',title:'Domanda importantissima',text:'Quale di queste azioni compierebbe un vero essere umano?',choices:['Continuare a fare CAPTCHA senza sapere perché','Chiudere questa pagina e vivere serenamente','Chiedersi perché esiste questa pagina','Tutte le precedenti, ma continuare comunque']},
 
 {type:'wait',title:'Verifica della pazienza',text:'Non fare niente. Il sistema sta pensando.',seconds:4},
 {type:'captcha',title:'Il sistema ha cambiato idea',text:'Ok, puoi cliccare.',label:'Clicca qui per favore',weird:true},
@@ -42,7 +42,7 @@ const levels=[
 
 {type:'captcha',title:'Richiesta approvata',text:'Hai scelto di continuare. Non possiamo farci niente.',label:'Non sono un robot',weird:true},
 
-{type:'intermission',title:'PAUSA',text:'Fermati un secondo.',message:'Respira. Guarda fuori dalla finestra. Ricorda che tutto questo è per una gift card.',choices:['Ho bisogno di una pausa','Non mi interessa','Sì','No, continuiamo','Ho fatto una scelta di vita discutibile'],correct:3},
+{type:'intermission',title:'PAUSA',text:'Fermati un secondo.',message:'Respira. Guarda fuori dalla finestra. Ricorda che tutto questo è per una verifica di sicurezza.',choices:['Ho bisogno di una pausa','Non mi interessa','Sì','No, continuiamo','Ho fatto una scelta di vita discutibile'],correct:3},
 
 {type:'captcha',title:'Dopo la pausa',text:'Bentornato. Il CAPTCHA ti stava aspettando.',label:'Non sono un robot',weird:true},
 {type:'captcha',title:'Verifica 27',text:'Il sistema non ha commenti.',label:'Non sono un robot',weird:true},
@@ -56,7 +56,7 @@ const levels=[
 {type:'captcha',title:'Verifica 33',text:'Era una garanzia pessima.',label:'Non sono un robot',weird:true},
 {type:'captcha',title:'Verifica 34',text:'Sei ancora qui.',label:'Non sono un robot',weird:true},
 
-{type:'intermission',title:'Test psicologico definitivo',text:'Cosa stai pensando in questo preciso momento?',message:'Scegli la risposta che descrive meglio la situazione.',choices:['Ma quanto manca?','Voglio il regalo','Perché ho iniziato?','Tutte e tre contemporaneamente','Non lo so più'],correct:3},
+{type:'intermission',title:'Test psicologico definitivo',text:'Cosa stai pensando in questo preciso momento?',message:'Scegli la risposta che descrive meglio la situazione.',choices:['Ma quanto manca?','Voglio sapere quanto manca','Perché ho iniziato?','Tutte e tre contemporaneamente','Non lo so più'],correct:3},
 
 {type:'intermission',title:'Risultato del test',text:'Abbiamo analizzato la tua risposta.',message:'Diagnosi: continui a cliccare.',choices:['Sì','No','Forse','Non è una diagnosi','Accetto il mio destino'],correct:4},
 
@@ -67,7 +67,7 @@ const levels=[
 {type:'captcha',title:'Verifica finale',text:'Errore. Non era quella finale.',label:'Non sono un robot',weird:true},
 {type:'captcha',title:'Verifica finale 2',text:'Adesso dovrebbe essere quella finale.',label:'Non sono un robot',weird:true},
 
-{type:'intermission',title:'ULTIMO AVVISO',text:'Il sistema sta diventando stanco.',message:'Anche il server vuole il tuo regalo.',choices:['Andiamo avanti','No','Forse','Il server può aspettare','Andiamo avanti, ormai'],correct:4},
+{type:'intermission',title:'ULTIMO AVVISO',text:'Il sistema sta diventando stanco.',message:'Anche il server vuole sapere quando finirai.',choices:['Andiamo avanti','No','Forse','Il server può aspettare','Andiamo avanti, ormai'],correct:4},
 
 {type:'captcha',title:'Verifica 44',text:'Il server ringrazia.',label:'Non sono un robot',weird:true},
 {type:'captcha',title:'Verifica 45',text:'Non c’è più niente da dire.',label:'Non sono un robot',weird:true},
@@ -78,6 +78,18 @@ const levels=[
 {type:'captcha',title:'Verifica 50',text:'Sei arrivato fino a qui. Questa volta clicca.',label:'NON SONO UN ROBOT',weird:true},
 {type:'final'}
 ];
+
+function deviceSummary(){
+ const info=[
+  'Browser: '+navigator.userAgent.split(' ').pop(),
+  'Lingua: '+navigator.language,
+  'Sistema: '+(/Windows/i.test(navigator.userAgent)?'Windows':/Mac/i.test(navigator.userAgent)?'macOS':/Linux/i.test(navigator.userAgent)?'Linux':'sistema non identificato'),
+  'Risoluzione: '+screen.width+'×'+screen.height,
+  'Fuso orario: '+Intl.DateTimeFormat().resolvedOptions().timeZone,
+  'CPU logiche dichiarate: '+(navigator.hardwareConcurrency||'non disponibile')
+ ];
+ return info.join('<br>');
+}
 
 function elapsed(){return Math.max(1,Math.round((Date.now()-started)/1000))}
 function save(){localStorage.setItem('hv_level',level);localStorage.setItem('hv_attempts',attempts)}
