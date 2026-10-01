@@ -10,27 +10,32 @@ body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 0,#fff 0
 .card{background:#fff;border:1px solid #d9d9d9;border-radius:7px;box-shadow:0 2px 8px #00000012;padding:30px}
 h1{font-size:21px;font-weight:500;margin:0 0 9px}
 p{line-height:1.55;color:#5f6368;margin:8px 0 22px}
-.small{font-size:12px;color:#777}
+.small{font-size:12px;color:#777;letter-spacing:.4px}
 .captcha{border:1px solid #d6d6d6;border-radius:3px;background:#fafafa;width:min(305px,100%);min-height:74px;display:flex;align-items:center;justify-content:space-between;padding:14px 15px;margin:22px auto}
 .check-row{display:flex;align-items:center;gap:12px;font-size:14px;color:#222;cursor:pointer}
 .checkbox{width:28px;height:28px;border:2px solid #555;background:#fff;border-radius:3px;display:grid;place-items:center;flex:none}
 .checkbox.done{background:#4285f4;border-color:#4285f4;color:#fff}
 .recaptcha-logo{text-align:center;color:#777;font-size:8px}
 .recaptcha-logo strong{display:block;font-size:20px;line-height:18px;color:#777}
-button,.choice{font:inherit}
+button{font:inherit}
 .action{display:block;margin:18px auto 0;border:1px solid #dadce0;background:#fff;color:#1a73e8;padding:9px 17px;border-radius:4px;cursor:pointer}
 .action:hover{background:#f8fbff}
 .message{padding:13px;border-left:3px solid #4285f4;background:#f7faff;color:#4a4a4a;font-size:13px;margin-top:18px}
-.progress{height:4px;background:#e6e6e6;border-radius:5px;overflow:hidden;margin-bottom:20px}
-.progress>i{display:block;height:100%;background:#4285f4;width:var(--progress,10%)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0}
-.stat{background:#f7f7f7;border:1px solid #e5e5e5;border-radius:4px;padding:12px;text-align:center}
-.stat b{display:block;font-size:18px;color:#333}.stat span{font-size:10px;color:#888}
-.choices{display:grid;gap:9px;margin:20px 0}.choice{padding:12px;text-align:left;border:1px solid #ddd;background:#fff;border-radius:5px;cursor:pointer}.choice:hover{border-color:#4285f4}
-.glitch{animation:glitch .15s linear 2}
-@keyframes glitch{50%{transform:translateX(3px)}}
-.final{text-align:center;padding:48px 25px}.final .big{font-size:30px;font-weight:600;margin:15px 0}.secret{font-family:monospace;background:#111;color:#65ff8b;padding:16px;border-radius:5px;margin:24px 0}
-.weird{background:#111;color:#eee;border-color:#333}.weird p,.weird .small{color:#aaa}.weird .captcha{background:#181818;border-color:#444}.weird .check-row{color:#eee}.weird .checkbox{background:#222;border-color:#aaa}.weird .stat{background:#181818;border-color:#333}.weird .stat b{color:#eee}.weird .action{background:#222;border-color:#555;color:#7db5ff}
-body.chaos{background:#101010;color:#eee}.chaos .topbar,.chaos footer{background:#090909;border-color:#222}.chaos .brand{color:#ddd}.chaos .app{filter:saturate(.8)}
+.dramatic{font-size:15px;line-height:1.6}
+.phrase-box{background:#111;color:#65ff8b;padding:16px;border-radius:5px;margin:20px 0;font-family:monospace;line-height:1.5;word-break:break-word}
+.text-input{width:100%;padding:13px;border:1px solid #bbb;border-radius:5px;font:inherit;outline:none}
+.text-input:focus{border-color:#4285f4;box-shadow:0 0 0 2px #4285f420}
+.input-msg{font-size:12px;color:#777;margin-top:8px;min-height:18px}.input-msg.success{color:#188038}.input-msg.error{color:#d93025}
+.choices{display:grid;gap:9px;margin:20px 0}.choice{padding:13px;text-align:left;border:1px solid #ddd;background:#fff;border-radius:5px;cursor:pointer}.choice:hover{border-color:#4285f4}
+.moving-area{height:230px;position:relative;border:1px dashed #ccc;border-radius:5px;margin-top:20px;overflow:hidden;background:#fafafa}
+.moving-button{position:absolute;left:38%;top:40%;padding:11px 15px;border:1px solid #bbb;background:#fff;border-radius:4px;cursor:pointer;transition:left .12s,top .12s}
+#trap{position:relative}.trap{color:#b3261e}
+#trap-msg{text-align:center;color:#777;font-size:12px;margin-top:12px;min-height:18px}
+.wait-box{display:flex;align-items:center;justify-content:center;gap:14px;padding:35px;background:#fafafa;border:1px solid #eee;border-radius:5px;margin-top:20px;color:#777}
+.spinner{width:22px;height:22px;border:3px solid #ddd;border-top-color:#4285f4;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.weird{background:#111;color:#eee;border-color:#333}.weird p,.weird .small{color:#aaa}.weird .captcha,.weird .moving-area,.weird .wait-box{background:#181818;border-color:#444}.weird .check-row{color:#eee}.weird .checkbox{background:#222;border-color:#aaa}.weird .action,.weird .choice,.weird .moving-button{background:#222;border-color:#555;color:#ddd}
+.final{text-align:center;padding:48px 25px}.final .big{font-size:30px;font-weight:600;margin:15px 0}.secret{font-family:monospace;background:#111;color:#65ff8b;padding:16px;border-radius:5px;margin:24px 0}.reward{border:1px solid #444;border-radius:5px;padding:18px;margin:22px 0;line-height:1.7}
+body.chaos{background:#101010;color:#eee}.chaos .topbar,.chaos footer{background:#090909;border-color:#222}.chaos .brand{color:#ddd}
 footer{padding:15px 28px;border-top:1px solid #ddd;background:#fff;color:#999;font-size:10px;display:flex;justify-content:space-between}
-@media(max-width:520px){.topbar{padding:0 15px}.app{padding:25px 0}.card{padding:22px}.stats{grid-template-columns:1fr}.captcha{margin-left:0;margin-right:0}footer{padding:12px 15px}}
+@media(max-width:520px){.topbar{padding:0 15px}.app{padding:25px 0}.card{padding:22px}.moving-area{height:260px}footer{padding:12px 15px}}
