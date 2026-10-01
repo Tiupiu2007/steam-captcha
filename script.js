@@ -99,6 +99,62 @@ function captcha(label){
  return '<div class="captcha"><div class="check-row" id="captcha-click"><span class="checkbox" id="box"></span><span>'+label+'</span></div><div class="recaptcha-logo"><strong>↻</strong>human<br>verification</div></div>';
 }
 
+const dialogueLines=[
+ 'Ehi. Sei tu quello che sta continuando?',
+ 'Ah. Hai davvero cliccato.',
+ 'Interessante.',
+ 'Non pensavo saresti arrivato fin qui.',
+ 'Sei ancora qui. Mi piace la tua determinazione.',
+ 'Ok, il sistema ti ha notato.',
+ 'Questa parte non era necessaria.',
+ 'Quindi hai scelto di continuare.',
+ 'La frase è davvero questa. Non chiedermi perché.',
+ 'Funziona. Purtroppo.',
+ 'Il pulsante si muove. Non prenderla sul personale.',
+ 'Sto iniziando a pensare che tu non sia qui per la verifica.',
+ 'Un tostapane e un computer. Finalmente una domanda seria.',
+ 'Aspetta. Perché stai ancora continuando?',
+ 'Il sistema sta iniziando a perdere fiducia nell’umanità.',
+ 'Non so più se sto verificando te o tu stai verificando me.',
+ 'Adesso vediamo se sai mettere le cose in ordine.',
+ 'Una domanda di matematica. Perché no.',
+ 'Forse il vero test è vedere quanto sei testardo.',
+ 'Hai risposto. Tecnicamente è un progresso.',
+ 'Energia ripristinata. Non so cosa significhi.',
+ 'Hai scelto di continuare. Ancora.',
+ 'Questa pagina non ha alcuna intenzione di smettere.',
+ 'Sto prendendo nota. Di cosa? Non ne ho idea.',
+ 'Una pausa sarebbe stata ragionevole.',
+ 'Hai scelto di non farla.',
+ 'Le gocce d’acqua erano importanti. Fidati.',
+ 'Memoria verificata. Il tuo cervello può restare.',
+ 'Lui è tornato.',
+ 'Un tecnico aveva un’opinione diversa.',
+ 'Non ascolti mai i tecnici, vero?',
+ 'Interruttori. Finalmente qualcosa di semplice.',
+ 'Quasi finito. Questa frase ha già mentito prima.',
+ 'Stai ancora cliccando. Impressionante.',
+ 'Una parola è fuori posto. Come questa pagina.',
+ 'Ora il test è ufficialmente inutile.',
+ 'Abbiamo analizzato la tua risposta.',
+ 'Diagnosi: continui a cliccare.',
+ 'Porta il punto blu all’uscita. Sì, davvero.',
+ 'Precisione. Il sistema ama la precisione.',
+ 'Aspetta il momento giusto.',
+ 'Ultimi controlli.',
+ 'Errore. Non era quella finale.',
+ 'Basta ancora uno.',
+ 'Il server vuole sapere quando finirai.',
+ 'Segui la pallina. Dice il sistema.',
+ 'Questo enigma non cambierà la tua vita.',
+ 'No. C’era ancora un CAPTCHA.',
+ 'Porta la chiave nella serratura.',
+ 'Quasi alla fine.',
+ 'Cassaforte. Codice semplice.',
+ 'Collega i cavi e poi, forse, ti lascio andare.'
+];
+function dialogueFor(i){return dialogueLines[Math.min(i,dialogueLines.length-1)];}
+
 function miniMarkup(d){
  const g=d.game;
  if(g==='tapstorm')return '<div class="mini-panel"><button class="big-mini-button" id="tapstorm">TOCCA</button><div id="mini-msg" class="mini-msg">0 / 5</div></div>';
