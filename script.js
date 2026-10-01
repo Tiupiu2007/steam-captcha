@@ -20,7 +20,7 @@ const levels=[
 {type:'captcha',title:'Ottimo.',text:'Non so perché l’hai fatto. Ma hai superato il controllo.',label:'Non sono un robot',weird:true},
 {type:'moving',title:'Verifica dinamica',text:'Il sistema vuole verificare che tu sia in grado di inseguire un pulsante.',label:'NON SONO UN ROBOT'},
 {type:'fake',title:'Controllo dell’intelligenza',text:'Premi il pulsante qui sotto per dimostrare di essere intelligente.',label:'NON PREMERMI',wrong:'Hai premuto il pulsante. Interessante definizione di intelligenza.'},
-{type:'captcha',title:'Analisi comportamentale',text:'Abbiamo registrato la tua scelta precedente.',label:'Non sono un robot',weird:true},
+{type:'classify',title:'Verifica hardware',text:'Dimostra di saper distinguere un tostapane da un computer.',items:[['🍞','TOSTAPANE'],['💻','COMPUTER']],correct:1,weird:true},
 
 {type:'choice',title:'Domanda importantissima',text:'Quale di queste azioni compierebbe un vero essere umano?',choices:['Continuare a fare CAPTCHA senza sapere perché','Chiudere questa pagina e vivere serenamente','Chiedersi perché esiste questa pagina','Tutte le precedenti, ma continuare comunque']},
 
@@ -33,7 +33,7 @@ const levels=[
 
 {type:'intermission',title:'Una domanda',text:'Ma tu... non hai altro da fare?',message:'Hai intenzione di abbandonare questa verifica?',choices:['Sì','No','Forse','Non lo so','Preferisco continuare'],correct:1},
 
-{type:'captcha',title:'Perfetto.',text:'La tua risposta è stata registrata. Il sistema sembra soddisfatto.',label:'Non sono un robot',weird:true},
+{type:'target',title:'Verifica di precisione',text:'Tocca tutti i bersagli prima che il sistema perda la pazienza.',count:4,weird:true},
 {type:'captcha',title:'Verifica 21',text:'Questa volta davvero.',label:'NON SONO UN ROBOT',weird:true},
 {type:'fake',title:'IMPORTANTE',text:'Non premere il pulsante.',label:'Premimi',wrong:'Grazie. Era esattamente quello che non dovevi fare.'},
 {type:'captcha',title:'Conseguenze',text:'A causa della verifica precedente, serve un altro CAPTCHA.',label:'Non sono un robot',weird:true},
@@ -46,7 +46,7 @@ const levels=[
 
 {type:'captcha',title:'Dopo la pausa',text:'Bentornato. Il CAPTCHA ti stava aspettando.',label:'Non sono un robot',weird:true},
 {type:'captcha',title:'Verifica 27',text:'Il sistema non ha commenti.',label:'Non sono un robot',weird:true},
-{type:'captcha',title:'Verifica 28',text:'Nemmeno noi sappiamo perché.',label:'Non sono un robot',weird:true},
+{type:'memory',title:'Verifica della memoria',text:'Memorizza la sequenza. Il sistema non accetta scuse.',weird:true},
 {type:'moving',title:'Ancora lui',text:'Il pulsante ha deciso di non collaborare.',label:'CLICCAMI',weird:true},
 
 {type:'intermission',title:'Avviso del personale',text:'Un tecnico ha chiesto di comunicarti una cosa.',message:'“Basta CAPTCHA.” Il tecnico è stato ignorato dal sistema.',choices:['Ascolto il tecnico','Continuo','Forse ascolto','Non ho mai ascoltato un tecnico','Continuare contro ogni buon senso'],correct:4},
@@ -62,7 +62,7 @@ const levels=[
 
 {type:'captcha',title:'Verifica 37',text:'Il tuo destino richiede un CAPTCHA.',label:'Non sono un robot',weird:true},
 {type:'captcha',title:'Verifica 38',text:'Sì.',label:'Non sono un robot',weird:true},
-{type:'captcha',title:'Verifica 39',text:'Ancora.',label:'Non sono un robot',weird:true},
+{type:'reaction',title:'Verifica dei riflessi',text:'Aspetta che il riquadro diventi verde, poi toccalo immediatamente.',weird:true},
 {type:'wait',title:'Controllo finale finale',text:'Questa volta non scherziamo.',seconds:3},
 {type:'captcha',title:'Verifica finale',text:'Errore. Non era quella finale.',label:'Non sono un robot',weird:true},
 {type:'captcha',title:'Verifica finale 2',text:'Adesso dovrebbe essere quella finale.',label:'Non sono un robot',weird:true},
@@ -73,7 +73,7 @@ const levels=[
 {type:'captcha',title:'Verifica 45',text:'Non c’è più niente da dire.',label:'Non sono un robot',weird:true},
 {type:'fake',title:'ULTIMISSIMO CAPTCHA',text:'Premi e sarà finita.',label:'FALLO FINIRE',wrong:'No. C’era ancora un CAPTCHA.'},
 {type:'captcha',title:'Verifica 47',text:'...seriamente?',label:'Non sono un robot',weird:true},
-{type:'captcha',title:'Verifica 48',text:'Ok.',label:'Non sono un robot',weird:true},
+{type:'odd',title:'Analisi visiva',text:'Una casella non appartiene alle altre. Trovala.',weird:true},
 {type:'captcha',title:'Verifica 49',text:'Basta.',label:'Non sono un robot',weird:true},
 {type:'captcha',title:'Verifica 50',text:'Sei arrivato fino a qui. Questa volta clicca.',label:'NON SONO UN ROBOT',weird:true},
 {type:'final'}
@@ -122,6 +122,11 @@ function render(){
  if(d.type==='fake')body+='<button class="action trap" id="trap">'+d.label+'</button><div id="trap-msg"></div>';
  if(d.type==='choice')body+='<div class="choices">'+d.choices.map((x,i)=>'<button class="choice" data-i="'+i+'">'+x+'</button>').join('')+'</div>';
  if(d.type==='wait')body+='<div class="wait-box"><div class="spinner"></div><span id="wait-text">Analisi in corso...</span></div>';
+ if(d.type==='classify')body+='<div class="mini-game classify-game">'+d.items.map((x,i)=>'<button class="mini-card" data-i="'+i+'"><span class="mini-icon">'+x[0]+'</span><span>'+x[1]+'</span></button>').join('')+'</div><div id="mini-msg" class="mini-msg">Seleziona quello corretto.</div>';
+ if(d.type==='target')body+='<div class="target-game"><div class="target-area" id="target-area"></div><div class="mini-progress" id="target-progress">0 / '+d.count+'</div></div>';
+ if(d.type==='memory')body+='<div class="memory-game" id="memory-game"></div><div id="memory-msg" class="mini-msg">Osserva la sequenza...</div>';
+ if(d.type==='reaction')body+='<button class="reaction-game" id="reaction-game">ATTENDI...</button><div id="reaction-msg" class="mini-msg">Il sistema sta aspettando.</div>';
+ if(d.type==='odd')body+='<div class="odd-game" id="odd-game"></div><div id="odd-msg" class="mini-msg">Trova quello diverso.</div>';
  body+='</div>';app.innerHTML=body;
  if(d.type==='captcha'){document.getElementById('captcha-click').onclick=()=>{document.getElementById('box').classList.add('done');document.getElementById('box').textContent='✓';setTimeout(advance,300)}}
  if(d.type==='intermission'){
@@ -156,6 +161,41 @@ function render(){
  }
  if(d.type==='fake'){document.getElementById('trap').onclick=()=>{document.getElementById('trap-msg').textContent=d.wrong;document.getElementById('trap').textContent='...ok, puoi passare';setTimeout(advance,950)}}
  if(d.type==='choice')document.querySelectorAll('.choice').forEach(b=>b.onclick=advance);
+ if(d.type==='classify'){
+  document.querySelectorAll('.mini-card').forEach(b=>b.onclick=()=>{
+    const selected=Number(b.dataset.i),msg=document.getElementById('mini-msg');
+    if(selected===d.correct){b.classList.add('correct');msg.textContent='✓ Identificazione corretta. Era un tostapane. Cioè, un computer. Il sistema è soddisfatto.';setTimeout(advance,650)}
+    else{b.classList.add('wrong');b.disabled=true;msg.textContent='✗ No. Questo è chiaramente un tostapane. O un computer. Riprova.'}
+  });
+ }
+ if(d.type==='target'){
+  const area=document.getElementById('target-area'),progress=document.getElementById('target-progress');let hit=0;
+  const spawn=()=>{
+    const t=document.createElement('button');t.className='target';t.textContent='×';
+    t.style.left=(8+Math.random()*76)+'%';t.style.top=(8+Math.random()*76)+'%';
+    t.onclick=()=>{hit++;t.remove();progress.textContent=hit+' / '+d.count;if(hit<d.count)spawn();else{progress.textContent='✓ Verifica superata';setTimeout(advance,500)}};
+    area.appendChild(t);
+  };
+  for(let i=0;i<2;i++)spawn();
+ }
+ if(d.type==='memory'){
+  const grid=document.getElementById('memory-game'),msg=document.getElementById('memory-msg');let sequence=[],step=0,locked=true;
+  const cells=Array.from({length:9},(_,i)=>{const b=document.createElement('button');b.className='memory-cell';b.dataset.i=i;b.textContent='';grid.appendChild(b);return b});
+  while(sequence.length<4){const n=Math.floor(Math.random()*9);if(!sequence.includes(n))sequence.push(n)}
+  sequence.forEach((n,i)=>setTimeout(()=>{cells[n].classList.add('show');setTimeout(()=>cells[n].classList.remove('show'),420)},i*650));
+  setTimeout(()=>{locked=false;msg.textContent='Ora ripeti la sequenza.'},sequence.length*650+500);
+  cells.forEach(b=>b.onclick=()=>{if(locked)return;const i=Number(b.dataset.i);if(i===sequence[step]){b.classList.add('good');step++;if(step===sequence.length){msg.textContent='✓ Memoria confermata. Inutile, ma impressionante.';setTimeout(advance,650)}}else{step=0;msg.textContent='✗ Sequenza errata. Riparti da capo.';cells.forEach(x=>x.classList.remove('good'))}});
+ }
+ if(d.type==='reaction'){
+  const b=document.getElementById('reaction-game'),msg=document.getElementById('reaction-msg');let active=false,done=false;
+  b.onclick=()=>{if(!active||done){if(!active)msg.textContent='✗ Troppo presto. Anche il nulla richiede pazienza.';return}done=true;b.textContent='✓ PRESO';msg.textContent='Reazione registrata.';setTimeout(advance,650)};
+  const delay=1800+Math.random()*2500;
+  setTimeout(()=>{active=true;b.textContent='CLICCA ORA';msg.textContent='ADESSO.';b.classList.add('ready')},delay);
+ }
+ if(d.type==='odd'){
+  const grid=document.getElementById('odd-game'),msg=document.getElementById('odd-msg');const odd=Math.floor(Math.random()*9);
+  for(let i=0;i<9;i++){const b=document.createElement('button');b.className='odd-cell';b.textContent=i===odd?'🔧':'🔩';b.onclick=()=>{if(i===odd){b.classList.add('correct');msg.textContent='✓ Elemento anomalo identificato.';setTimeout(advance,600)}else{b.classList.add('wrong');msg.textContent='✗ No. Quello era perfettamente normale.'}};grid.appendChild(b)}
+ }
  if(d.type==='wait'){
   let remaining=d.seconds;const t=document.getElementById('wait-text');
   const timer=setInterval(()=>{remaining--;if(remaining>0)t.textContent='Analisi in corso... '+remaining;else{clearInterval(timer);t.textContent='Analisi completata. In realtà non stavamo facendo niente.';setTimeout(advance,900)}},1000)
