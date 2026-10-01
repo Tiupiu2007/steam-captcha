@@ -70,3 +70,27 @@ footer{padding:15px 28px;border-top:1px solid #ddd;background:#fff;color:#999;fo
  .mini-icon{font-size:52px}
  .target-area{height:250px}
 }
+
+.talk-box{margin:0 0 20px;padding:14px 16px;border:1px solid #555;border-radius:8px;background:#151515;color:#eee;min-height:64px;font-family:monospace;line-height:1.5;position:relative}
+.talk-name{font-weight:700;color:#65ff8b;font-size:11px;letter-spacing:1px;margin-bottom:5px}
+.talk-box:after{content:'';position:absolute;bottom:-7px;left:22px;width:12px;height:12px;background:#151515;border-right:1px solid #555;border-bottom:1px solid #555;transform:rotate(45deg)}
+.mini-panel{text-align:center;margin-top:20px}
+.big-mini-button{width:min(260px,100%);height:120px;border:2px solid #777;border-radius:10px;background:#222;color:#fff;font-weight:700;font-size:22px;touch-action:manipulation}
+.big-mini-button:active{transform:scale(.97)}
+.sort-game{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:20px}
+.sort-item,.math-options button,.battery-poles button,.balance-buttons button,.word-item,.safe-buttons button,.wire,.socket{border:1px solid #555;background:#202020;color:#eee;border-radius:7px;padding:14px;cursor:pointer;touch-action:manipulation}
+.sort-item span{display:block;font-size:40px;margin-bottom:7px}.sort-item.picked,.math-options button.picked{background:#174d2a;border-color:#65ff8b}.math-card{margin-top:20px;text-align:center;padding:25px;border:1px solid #444;border-radius:8px;font-size:24px}.math-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}.math-options button{font-size:18px}.math-options button.bad{opacity:.45}
+.battery-game{text-align:center;margin-top:20px}.battery-icon{font-size:80px}.battery-poles{display:flex;justify-content:center;gap:12px;margin-top:10px}.battery-poles button{width:70px;font-size:24px}
+.catch-game{height:250px;position:relative;border:1px dashed #555;border-radius:8px;margin-top:20px;overflow:hidden}.raindrop{position:absolute;background:none;border:0;font-size:34px;padding:8px;touch-action:manipulation}
+.switch-game{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px}.switch{height:80px;border:1px solid #555;border-radius:8px;background:#222;color:#aaa;font-weight:700}.switch:active{background:#174d2a}
+.balance-game{margin-top:20px;text-align:center}.weights{display:flex;justify-content:space-around;align-items:center;padding:28px 10px;border:1px solid #555;border-radius:8px;font-size:20px}.balance-buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
+.word-game{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:20px}.word-item{font-weight:700;min-height:65px}
+.maze-game{margin-top:20px}.maze-board{display:grid;grid-template-columns:repeat(4,1fr);max-width:280px;margin:auto;border:1px solid #555}.maze-cell{aspect-ratio:1;display:grid;place-items:center;border:1px solid #333;font-size:25px}.maze-controls{text-align:center;margin-top:10px}.maze-controls button{border:1px solid #555;background:#222;color:#fff;border-radius:7px;padding:13px 18px;margin:2px;touch-action:manipulation}
+.slider-game{margin-top:20px;text-align:center}.slider-value{font-size:28px;font-family:monospace;margin-bottom:15px}.slider-game input{width:100%;touch-action:pan-x}
+.lights-game{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:20px}.light{aspect-ratio:1;border:1px solid #555;border-radius:8px;background:#222;font-size:35px}.light.on{background:#473f17}
+.cups-game{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:20px}.cup{font-size:55px;background:#202020;border:1px solid #555;border-radius:8px;padding:20px 5px;touch-action:manipulation}
+.riddle-game{margin-top:20px}.riddle{padding:20px;border:1px solid #555;border-radius:8px;text-align:center}.riddle-options{display:grid;gap:8px;margin-top:10px}.riddle-options button{padding:14px;background:#202020;color:#eee;border:1px solid #555;border-radius:7px}
+.drag-game{height:220px;position:relative;border:1px dashed #555;border-radius:8px;margin-top:20px;overflow:hidden;touch-action:none}.drag-item{position:absolute;left:18px;top:50%;font-size:42px;transform:translateY(-50%);padding:10px;touch-action:none}.lock-drop{position:absolute;right:22px;top:50%;font-size:60px;transform:translateY(-50%);padding:12px}
+.safe-game{text-align:center;margin-top:20px}.safe-dial{width:110px;height:110px;border:5px solid #777;border-radius:50%;display:grid;place-items:center;margin:auto;font-size:40px;font-family:monospace}.safe-buttons{display:flex;justify-content:center;gap:10px;margin:12px}.safe-buttons button{width:70px;font-size:24px}.safe-code{font-family:monospace;color:#aaa}
+.wires-game{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:20px}.wire,.socket{min-height:65px;font-size:20px}
+@media(max-width:520px){.sort-game{grid-template-columns:1fr}.sort-item{min-height:75px}.math-card{font-size:21px}.catch-game{height:230px}.talk-box{font-size:13px}.cups-game .cup{font-size:42px;padding:16px 2px}}
