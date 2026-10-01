@@ -162,21 +162,11 @@ const dialogueLines=[
  'io non capisce cosa succede qui',
  'tu cliccare ancora, molto strano',
  'sistema avere problema piccolo',
- 'io penso questo non normale',
  'perche tu ancora qui?',
- 'aspetta io controlla cosa fare',
- 'questa pagina fare cose strane',
  'io non sapere italiano bene',
- 'tu essere molto paziente',
- 'forse verifica essere troppo lunga',
  'non fare domanda, sistema confuso',
- 'io vedere pulsante, tu clicca',
  'questo essere ultimo? io non sicuro',
- 'io avere idea ma idea non buona',
  'server non vuole parlare con me',
- 'tu continua, io guarda soltanto',
- 'molto bene, noi andare avanti',
- 'io credo finire presto, forse',
  'questa cosa non avere senso',
  'tu essere umano? io non sapere'
 ];
@@ -282,7 +272,7 @@ function render(){
   b.onclick=()=>{if(moves>=5)advance(token)};
  }
  if(d.type==='fake'){document.getElementById('trap').onclick=()=>{document.getElementById('trap-msg').textContent=d.wrong;document.getElementById('trap').textContent='...ok, puoi passare';setTimeout(()=>advance(token),950)}}
- if(d.type==='choice')document.querySelectorAll('.choice').forEach(b=>b.onclick=advance);
+ if(d.type==='choice')document.querySelectorAll('.choice').forEach(b=>b.onclick=()=>advance(token));
  if(d.type==='classify'){
   document.querySelectorAll('.mini-card').forEach(b=>b.onclick=()=>{
     const selected=Number(b.dataset.i),msg=document.getElementById('mini-msg');
