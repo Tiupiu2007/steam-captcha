@@ -39,3 +39,34 @@ button{font:inherit}
 body.chaos{background:#101010;color:#eee}.chaos .topbar,.chaos footer{background:#090909;border-color:#222}.chaos .brand{color:#ddd}
 footer{padding:15px 28px;border-top:1px solid #ddd;background:#fff;color:#999;font-size:10px;display:flex;justify-content:space-between}
 @media(max-width:520px){.topbar{padding:0 15px}.app{padding:25px 0}.card{padding:22px}.moving-area{height:260px}footer{padding:12px 15px}}
+
+.mini-game{margin-top:20px}
+.classify-game{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.mini-card{min-height:170px;border:1px solid #444;background:#181818;color:#eee;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;cursor:pointer;font-weight:600}
+.mini-card:hover{border-color:#888}
+.mini-card:active{transform:scale(.98)}
+.mini-icon{font-size:64px;line-height:1}
+.mini-card.correct{border-color:#65ff8b;background:#102016}
+.mini-card.wrong{opacity:.45}
+.mini-msg{text-align:center;min-height:20px;margin-top:12px;color:#aaa;font-size:12px}
+.target-game{margin-top:20px}
+.target-area{height:270px;position:relative;border:1px dashed #555;border-radius:7px;background:#181818;overflow:hidden;touch-action:manipulation}
+.target{position:absolute;width:48px;height:48px;border-radius:50%;border:2px solid #ddd;background:#222;color:#fff;font-size:25px;cursor:pointer;transform:translate(-50%,-50%);touch-action:manipulation}
+.target:active{transform:translate(-50%,-50%) scale(.9)}
+.mini-progress{text-align:center;margin-top:10px;color:#aaa;font-size:12px}
+.memory-game{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:330px;margin:20px auto 0}
+.memory-cell{aspect-ratio:1;border:1px solid #555;background:#222;border-radius:6px;color:#65ff8b;font-size:20px;cursor:pointer;touch-action:manipulation}
+.memory-cell.show{background:#555}
+.memory-cell.good{background:#1d5b32}
+.reaction-game{width:100%;min-height:150px;margin-top:20px;border:1px solid #555;border-radius:8px;background:#181818;color:#aaa;font-size:20px;font-weight:700;cursor:pointer;touch-action:manipulation}
+.reaction-game.ready{background:#174d2a;color:#fff;border-color:#65ff8b}
+.odd-game{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:20px}
+.odd-cell{aspect-ratio:1;border:1px solid #555;background:#181818;border-radius:7px;font-size:34px;cursor:pointer;touch-action:manipulation}
+.odd-cell.correct{background:#174d2a;border-color:#65ff8b}
+.odd-cell.wrong{opacity:.45}
+@media(max-width:520px){
+ .classify-game{gap:9px}
+ .mini-card{min-height:145px}
+ .mini-icon{font-size:52px}
+ .target-area{height:250px}
+}
