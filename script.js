@@ -16,7 +16,7 @@ const levels=[
 
 {type:'intermission',title:'ATTENZIONE',text:'Il sistema ha stabilito che sei disposto a fare qualsiasi cosa per ottenere il tuo regalo.',message:'Quindi adesso devi dimostrare di essere degno.',choices:['Sì','No','Forse','Assolutamente sì','Preferirei non rispondere'],correct:0},
 
-{type:'password',title:'Protocollo di umanità',text:'Per continuare devi pronunciare la frase di sicurezza più stupida mai approvata da un essere umano.',phrase:'Sono un tostapane umano e non ho mai letto il README.',hint:'Scrivila ESATTAMENTE così. Sì, purtroppo è necessario.'},
+{type:'password',title:'Protocollo di umanità',text:'Per continuare devi pronunciare la frase di sicurezza più stupida mai approvata da un essere umano.',phrase:'questo sito è stato fatto da NOOR',hint:'Scrivila ESATTAMENTE così. Sì, purtroppo è necessario.'},
 {type:'captcha',title:'Ottimo.',text:'Non so perché l’hai fatto. Ma hai superato il controllo.',label:'Non sono un robot',weird:true},
 {type:'moving',title:'Verifica dinamica',text:'Il sistema vuole verificare che tu sia in grado di inseguire un pulsante.',label:'NON SONO UN ROBOT'},
 {type:'fake',title:'Controllo dell’intelligenza',text:'Premi il pulsante qui sotto per dimostrare di essere intelligente.',label:'NON PREMERMI',wrong:'Hai premuto il pulsante. Interessante definizione di intelligenza.'},
