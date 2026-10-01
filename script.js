@@ -1,12 +1,11 @@
 const app=document.getElementById('app');
 const statusEl=document.getElementById('security-status');
 
-let level=Number(localStorage.getItem('hv_level')||'0');
-let attempts=Number(localStorage.getItem('hv_attempts')||'0');
+let level=0;
+let attempts=0;
 let renderToken=0;
 let advancing=false;
-const started=Number(localStorage.getItem('hv_started')||Date.now());
-if(!localStorage.getItem('hv_started'))localStorage.setItem('hv_started',started);
+const started=Date.now();
 
 const levels=[
 {type:'captcha',title:'Verifica che sei umano',text:'Prima di continuare, conferma di non essere un robot.',label:'Non sono un robot'},
@@ -94,14 +93,14 @@ function deviceSummary(){
 }
 
 function elapsed(){return Math.max(1,Math.round((Date.now()-started)/1000))}
-function save(){localStorage.setItem('hv_level',level);localStorage.setItem('hv_attempts',attempts)}
+function save(){}
 function advance(token){
  if(token!==undefined && token!==renderToken)return;
  if(advancing)return;
  advancing=true;
  attempts++;level++;save();render()
 }
-function reset(){level=0;attempts=0;localStorage.setItem('hv_started',Date.now());save();document.body.classList.remove('chaos');render()}
+function reset(){level=0;attempts=0;document.body.classList.remove('chaos');render()}
 function captcha(label){
  return '<div class="captcha"><div class="check-row" id="captcha-click"><span class="checkbox" id="box"></span><span>'+label+'</span></div><div class="recaptcha-logo"><strong>↻</strong>human<br>verification</div></div>';
 }
