@@ -152,7 +152,27 @@ const dialogueLines=[
  'ٹھیک ہے، اب بس چلتے ہیں۔',
  'مجھے لگتا ہے ہم قریب ہیں۔',
  'یا شاید نہیں۔',
- 'خیر، اگلا دیکھتے ہیں۔'
+ 'خیر، اگلا دیکھتے ہیں۔',
+ 'io non capisce cosa succede qui',
+ 'tu cliccare ancora, molto strano',
+ 'sistema avere problema piccolo',
+ 'io penso questo non normale',
+ 'perche tu ancora qui?',
+ 'aspetta io controlla cosa fare',
+ 'questa pagina fare cose strane',
+ 'io non sapere italiano bene',
+ 'tu essere molto paziente',
+ 'forse verifica essere troppo lunga',
+ 'non fare domanda, sistema confuso',
+ 'io vedere pulsante, tu clicca',
+ 'questo essere ultimo? io non sicuro',
+ 'io avere idea ma idea non buona',
+ 'server non vuole parlare con me',
+ 'tu continua, io guarda soltanto',
+ 'molto bene, noi andare avanti',
+ 'io credo finire presto, forse',
+ 'questa cosa non avere senso',
+ 'tu essere umano? io non sapere'
 ];
 function dialogueFor(){return dialogueLines[Math.floor(Math.random()*dialogueLines.length)];}
 
