@@ -19,7 +19,7 @@ const levels=[
 {type:'password',title:'Protocollo di umanità',text:'Per continuare devi pronunciare la frase di sicurezza più stupida mai approvata da un essere umano.',phrase:'questo sito è stato fatto da NOOR',hint:'Scrivila ESATTAMENTE così. Sì, purtroppo è necessario.'},
 {type:'captcha',title:'Ottimo.',text:'Non so perché l’hai fatto. Ma hai superato il controllo.',label:'Non sono un robot',weird:true},
 {type:'moving',title:'Verifica dinamica',text:'Il sistema vuole verificare che tu sia in grado di inseguire un pulsante.',label:'NON SONO UN ROBOT'},
-{type:'fake',title:'Controllo dell’intelligenza',text:'Premi il pulsante qui sotto per dimostrare di essere intelligente.',label:'NON PREMERMI',wrong:'Hai premuto il pulsante. Interessante definizione di intelligenza.'},
+{type:'fake',title:'Controllo dell’intelligenza',text:'Premi il pulsante qui sotto per dimostrare di non essere intelligente.',label:'PREMERMI',wrong:'Hai premuto il pulsante. Interessante definizione di intelligenza.'},
 {type:'classify',title:'Verifica hardware',text:'Dimostra di saper distinguere un tostapane da un computer.',items:[['🍞','TOSTAPANE'],['💻','COMPUTER']],correct:1,weird:true},
 
 {type:'choice',title:'Domanda importantissima',text:'Quale di queste azioni compierebbe un vero essere umano?',choices:['Continuare a fare CAPTCHA senza sapere perché','Chiudere questa pagina e vivere serenamente','Chiedersi perché esiste questa pagina','Tutte le precedenti, ma continuare comunque']},
