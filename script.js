@@ -3,6 +3,8 @@ const statusEl=document.getElementById('security-status');
 
 let level=Number(localStorage.getItem('hv_level')||'0');
 let attempts=Number(localStorage.getItem('hv_attempts')||'0');
+let renderToken=0;
+let advancing=false;
 const started=Number(localStorage.getItem('hv_started')||Date.now());
 if(!localStorage.getItem('hv_started'))localStorage.setItem('hv_started',started);
 
@@ -93,7 +95,12 @@ function deviceSummary(){
 
 function elapsed(){return Math.max(1,Math.round((Date.now()-started)/1000))}
 function save(){localStorage.setItem('hv_level',level);localStorage.setItem('hv_attempts',attempts)}
-function advance(){attempts++;level++;save();render()}
+function advance(token){
+ if(token!==undefined && token!==renderToken)return;
+ if(advancing)return;
+ advancing=true;
+ attempts++;level++;save();render()
+}
 function reset(){level=0;attempts=0;localStorage.setItem('hv_started',Date.now());save();document.body.classList.remove('chaos');render()}
 function captcha(label){
  return '<div class="captcha"><div class="check-row" id="captcha-click"><span class="checkbox" id="box"></span><span>'+label+'</span></div><div class="recaptcha-logo"><strong>↻</strong>human<br>verification</div></div>';
@@ -198,6 +205,8 @@ function miniMarkup(d){
 }
 
 function render(){
+ const token=++renderToken;
+ advancing=false;
  const d=levels[level];
  if(!d||d.final){
    document.body.classList.add('chaos');statusEl.textContent='VERIFICATION COMPLETE';
@@ -229,14 +238,14 @@ function render(){
  body+='</div>';app.innerHTML=body;
  const talk=document.getElementById('talk-text');if(talk){const txt=dialogueFor(level);let ti=0;talk.textContent='';const typer=setInterval(()=>{talk.textContent+=txt[ti++]||'';if(ti>=txt.length)clearInterval(typer)},24);}
 
- if(d.type==='captcha'){document.getElementById('captcha-click').onclick=()=>{document.getElementById('box').classList.add('done');document.getElementById('box').textContent='✓';setTimeout(advance,300)}}
+ if(d.type==='captcha'){document.getElementById('captcha-click').onclick=()=>{document.getElementById('box').classList.add('done');document.getElementById('box').textContent='✓';setTimeout(()=>advance(token),300)}}
  if(d.type==='intermission'){
    if(d.choices){
      document.querySelectorAll('.choice').forEach(b=>b.onclick=()=>{
        const selected=Number(b.dataset.i);
        if(selected===d.correct){
          b.classList.add('selected');
-         setTimeout(advance,250);
+         setTimeout(()=>advance(token),250);
        }else{
          b.textContent='✗ Risposta rifiutata';
          b.disabled=true;
@@ -249,7 +258,7 @@ function render(){
  if(d.type==='password'){
   const input=document.getElementById('phrase');document.getElementById('submit-phrase').onclick=()=>{
    const msg=document.getElementById('phrase-msg');
-   if(input.value.trim()===d.phrase){msg.textContent='✓ Frase accettata. Mi vergogno di averla registrata.';msg.className='input-msg success';setTimeout(advance,650)}
+   if(input.value.trim()===d.phrase){msg.textContent='✓ Frase accettata. Mi vergogno di averla registrata.';msg.className='input-msg success';setTimeout(()=>advance(token),650)}
    else{msg.textContent='✗ No. Era difficile essere più precisi?';msg.className='input-msg error';input.focus()}
   };input.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('submit-phrase').click()})
  }
@@ -260,12 +269,12 @@ function render(){
   b.addEventListener('touchstart',e=>{if(moves<5){e.preventDefault();move()}},{passive:false});
   b.onclick=()=>{if(moves>=5)advance()};
  }
- if(d.type==='fake'){document.getElementById('trap').onclick=()=>{document.getElementById('trap-msg').textContent=d.wrong;document.getElementById('trap').textContent='...ok, puoi passare';setTimeout(advance,950)}}
+ if(d.type==='fake'){document.getElementById('trap').onclick=()=>{document.getElementById('trap-msg').textContent=d.wrong;document.getElementById('trap').textContent='...ok, puoi passare';setTimeout(()=>advance(token),950)}}
  if(d.type==='choice')document.querySelectorAll('.choice').forEach(b=>b.onclick=advance);
  if(d.type==='classify'){
   document.querySelectorAll('.mini-card').forEach(b=>b.onclick=()=>{
     const selected=Number(b.dataset.i),msg=document.getElementById('mini-msg');
-    if(selected===d.correct){b.classList.add('correct');msg.textContent='✓ Identificazione corretta. Era un tostapane. Cioè, un computer. Il sistema è soddisfatto.';setTimeout(advance,650)}
+    if(selected===d.correct){b.classList.add('correct');msg.textContent='✓ Identificazione corretta. Era un tostapane. Cioè, un computer. Il sistema è soddisfatto.';setTimeout(()=>advance(token),650)}
     else{b.classList.add('wrong');b.disabled=true;msg.textContent='✗ No. Questo è chiaramente un tostapane. O un computer. Riprova.'}
   });
  }
@@ -274,7 +283,7 @@ function render(){
   const spawn=()=>{
     const t=document.createElement('button');t.className='target';t.textContent='×';
     t.style.left=(8+Math.random()*76)+'%';t.style.top=(8+Math.random()*76)+'%';
-    t.onclick=()=>{hit++;t.remove();progress.textContent=hit+' / '+d.count;if(hit<d.count)spawn();else{progress.textContent='✓ Verifica superata';setTimeout(advance,500)}};
+    t.onclick=()=>{hit++;t.remove();progress.textContent=hit+' / '+d.count;if(hit<d.count)spawn();else{progress.textContent='✓ Verifica superata';setTimeout(()=>advance(token),500)}};
     area.appendChild(t);
   };
   for(let i=0;i<2;i++)spawn();
@@ -285,42 +294,42 @@ function render(){
   while(sequence.length<4){const n=Math.floor(Math.random()*9);if(!sequence.includes(n))sequence.push(n)}
   sequence.forEach((n,i)=>setTimeout(()=>{cells[n].classList.add('show');setTimeout(()=>cells[n].classList.remove('show'),420)},i*650));
   setTimeout(()=>{locked=false;msg.textContent='Ora ripeti la sequenza.'},sequence.length*650+500);
-  cells.forEach(b=>b.onclick=()=>{if(locked)return;const i=Number(b.dataset.i);if(i===sequence[step]){b.classList.add('good');step++;if(step===sequence.length){msg.textContent='✓ Memoria confermata. Inutile, ma impressionante.';setTimeout(advance,650)}}else{step=0;msg.textContent='✗ Sequenza errata. Riparti da capo.';cells.forEach(x=>x.classList.remove('good'))}});
+  cells.forEach(b=>b.onclick=()=>{if(locked)return;const i=Number(b.dataset.i);if(i===sequence[step]){b.classList.add('good');step++;if(step===sequence.length){msg.textContent='✓ Memoria confermata. Inutile, ma impressionante.';setTimeout(()=>advance(token),650)}}else{step=0;msg.textContent='✗ Sequenza errata. Riparti da capo.';cells.forEach(x=>x.classList.remove('good'))}});
  }
  if(d.type==='reaction'){
   const b=document.getElementById('reaction-game'),msg=document.getElementById('reaction-msg');let active=false,done=false;
-  b.onclick=()=>{if(!active||done){if(!active)msg.textContent='✗ Troppo presto. Anche il nulla richiede pazienza.';return}done=true;b.textContent='✓ PRESO';msg.textContent='Reazione registrata.';setTimeout(advance,650)};
+  b.onclick=()=>{if(!active||done){if(!active)msg.textContent='✗ Troppo presto. Anche il nulla richiede pazienza.';return}done=true;b.textContent='✓ PRESO';msg.textContent='Reazione registrata.';setTimeout(()=>advance(token),650)};
   const delay=1800+Math.random()*2500;
   setTimeout(()=>{active=true;b.textContent='CLICCA ORA';msg.textContent='ADESSO.';b.classList.add('ready')},delay);
  }
  if(d.type==='odd'){
   const grid=document.getElementById('odd-game'),msg=document.getElementById('odd-msg');const odd=Math.floor(Math.random()*9);
-  for(let i=0;i<9;i++){const b=document.createElement('button');b.className='odd-cell';b.textContent=i===odd?'🔧':'🔩';b.onclick=()=>{if(i===odd){b.classList.add('correct');msg.textContent='✓ Elemento anomalo identificato.';setTimeout(advance,600)}else{b.classList.add('wrong');msg.textContent='✗ No. Quello era perfettamente normale.'}};grid.appendChild(b)}
+  for(let i=0;i<9;i++){const b=document.createElement('button');b.className='odd-cell';b.textContent=i===odd?'🔧':'🔩';b.onclick=()=>{if(i===odd){b.classList.add('correct');msg.textContent='✓ Elemento anomalo identificato.';setTimeout(()=>advance(token),600)}else{b.classList.add('wrong');msg.textContent='✗ No. Quello era perfettamente normale.'}};grid.appendChild(b)}
  }
 
  if(d.type==='mini'){
   const msg=document.getElementById('mini-msg'),g=d.game;
-  if(g==='tapstorm'){let n=0;const b=document.getElementById('tapstorm');b.onclick=()=>{n++;b.textContent=['TOCCA','ANCORA','SICURO?','DAVVERO?','ULTIMO?'][Math.min(n,4)];msg.textContent=n+' / 5';if(n>=5){b.textContent='✓ OK';setTimeout(advance,500)}}}
-  if(g==='sort'){const items=[['🪶','PIUMA',1],['📱','TELEFONO',2],['🧱','MATTONE',3]],box=document.getElementById('sort-game');let n=1;items.sort(()=>Math.random()-.5);items.forEach(x=>{const b=document.createElement('button');b.className='sort-item';b.innerHTML='<span>'+x[0]+'</span>'+x[1];b.onclick=()=>{if(x[2]===n){b.classList.add('picked');n++;if(n===4){msg.textContent='✓ Ordine corretto.';setTimeout(advance,550)}}else{msg.textContent='✗ Troppo presto. Guarda il peso.'}};box.appendChild(b)})}
-  if(g==='math'){document.querySelectorAll('#math-options button').forEach(b=>b.onclick=()=>{const msg=document.getElementById('mini-msg');if(b.dataset.a==='9'){b.classList.add('picked');msg.textContent='✓ Matematica accettata.';setTimeout(advance,550)}else{b.classList.add('bad');msg.textContent='✗ No. Il sistema ti giudica.'}})}
-  if(g==='battery'){let seq=[];document.querySelectorAll('.battery-poles button').forEach(b=>b.onclick=()=>{seq.push(b.dataset.p);if(seq.length===1&&seq[0]==='minus')msg.textContent='Bene. Ora +.';else if(seq.length===2&&seq.join(',')==='minus,plus'){msg.textContent='✓ Energia ripristinata.';setTimeout(advance,550)}else{seq=[];msg.textContent='✗ Hai collegato tutto al contrario. Riprova.'}})}
-  if(g==='catch'){const area=document.getElementById('catch-game');let n=0;const spawn=()=>{const b=document.createElement('button');b.className='raindrop';b.textContent='💧';b.style.left=(8+Math.random()*80)+'%';b.style.top=(8+Math.random()*76)+'%';b.onclick=()=>{n++;b.remove();msg.textContent=n+' / 6';if(n<6)spawn();else{msg.textContent='✓ Pioggia terminata.';setTimeout(advance,500)}};area.appendChild(b)};spawn();spawn()}
-  if(g==='switches'){const box=document.getElementById('switch-game'),state=[0,0,0,0];[0,1,0,1].forEach((_,i)=>{const b=document.createElement('button');b.className='switch';b.textContent='OFF';b.onclick=()=>{state[i]^=1;b.textContent=state[i]?'ON':'OFF';if(state.join(',')==='1,0,1,0'){msg.textContent='✓ Configurazione corretta.';setTimeout(advance,550)}};box.appendChild(b)})}
-  if(g==='balance'){document.querySelectorAll('.balance-buttons button').forEach(b=>b.onclick=()=>{if(b.dataset.a==='right'){msg.textContent='✓ Destra pesa di più.';setTimeout(advance,550)}else msg.textContent='✗ La sinistra sta chiaramente mentendo.'})}
-  if(g==='word'){const words=['BANANA','MELA','PERA','SERVER'];const box=document.getElementById('word-game');words.sort(()=>Math.random()-.5);words.forEach(w=>{const b=document.createElement('button');b.className='word-item';b.textContent=w;b.onclick=()=>{if(w==='SERVER'){b.classList.add('picked');msg.textContent='✓ Hai trovato l’intruso.';setTimeout(advance,550)}else msg.textContent='✗ Quella è frutta. Riprova.'};box.appendChild(b)})}
-  if(g==='maze'){const board=document.getElementById('maze-board');let x=0,y=0;const draw=()=>{board.innerHTML='';for(let j=0;j<4;j++)for(let i=0;i<4;i++){const c=document.createElement('div');c.className='maze-cell';c.textContent=(i===x&&j===y)?'●':(i===3&&j===3)?'★':'';board.appendChild(c)}};draw();document.querySelectorAll('.maze-controls button').forEach(b=>b.onclick=()=>{const m=b.dataset.m;if(m==='up')y=Math.max(0,y-1);if(m==='down')y=Math.min(3,y+1);if(m==='left')x=Math.max(0,x-1);if(m==='right')x=Math.min(3,x+1);draw();if(x===3&&y===3){msg.textContent='✓ Uscita raggiunta.';setTimeout(advance,550)}})}
-  if(g==='slider'){const sl=document.getElementById('precision-slider'),val=document.querySelector('.slider-value');sl.oninput=()=>val.textContent=sl.value+'%';document.getElementById('slider-ok').onclick=()=>{if(Number(sl.value)===73){msg.textContent='✓ Precisione perfetta.';setTimeout(advance,550)}else msg.textContent='✗ 73%. Non 72. Non 74.'}}
-  if(g==='lights'){const box=document.getElementById('lights-game'),state=Array(6).fill(1);for(let i=0;i<6;i++){const b=document.createElement('button');b.className='light on';b.textContent='💡';b.onclick=()=>{state[i]^=1;b.classList.toggle('on');b.textContent=state[i]?'💡':'⚫';if(!state.includes(1)){msg.textContent='✓ Buio totale. Ottimo.';setTimeout(advance,550)}};box.appendChild(b)}}
-  if(g==='cups'){const box=document.getElementById('cups-game');let ball=Math.floor(Math.random()*3);for(let i=0;i<3;i++){const b=document.createElement('button');b.className='cup';b.textContent='🥤';b.dataset.i=i;b.onclick=()=>{if(Number(b.dataset.i)===ball){b.textContent='🥤🔴';msg.textContent='✓ Trovata.';setTimeout(advance,650)}else{b.textContent='🥤';msg.textContent='✗ No. La pallina non era lì.'}};box.appendChild(b)}setTimeout(()=>{msg.textContent='Mescola... fatto. Scegli.'},700)}
-  if(g==='riddle'){document.querySelectorAll('#riddle-options button').forEach(b=>b.onclick=()=>{if(b.dataset.a==='sedia'){msg.textContent='✓ Risposta accettata.';setTimeout(advance,550)}else msg.textContent='✗ No. Le altre opzioni non hanno quattro gambe utili.'})}
-  if(g==='drag'){const item=document.getElementById('key-drag'),drop=document.getElementById('lock-drop');let dragging=false;const start=e=>{dragging=true;e.preventDefault()};const move=e=>{if(!dragging)return;const p=e.touches?e.touches[0]:e;item.style.left=(p.clientX-item.parentElement.getBoundingClientRect().left-25)+'px';item.style.top=(p.clientY-item.parentElement.getBoundingClientRect().top-25)+'px'};const end=()=>{if(!dragging)return;dragging=false;const a=item.getBoundingClientRect(),b=drop.getBoundingClientRect();if(!(a.right<b.left||a.left>b.right||a.bottom<b.top||a.top>b.bottom)){msg.textContent='✓ Serratura aperta.';setTimeout(advance,550)}else{item.style.left='18px';item.style.top='50%';msg.textContent='✗ Quasi. Portala nella serratura.'}};item.addEventListener('mousedown',start);item.addEventListener('touchstart',start,{passive:false});window.addEventListener('mousemove',move);window.addEventListener('touchmove',move,{passive:false});window.addEventListener('mouseup',end);window.addEventListener('touchend',end)}
-  if(g==='safe'){let current=0,step=0;document.querySelectorAll('.safe-buttons button').forEach(b=>b.onclick=()=>{current=(current+(b.dataset.d==='+'?1:9))%10;document.getElementById('safe-dial').textContent=current;if([3,1,7][step]===current){step++;if(step===3){msg.textContent='✓ Cassaforte aperta.';setTimeout(advance,650)}else msg.textContent='✓ Ora cerca il prossimo numero.'}else if(current===[3,1,7][step]){}else if(step>0){}})}
-  if(g==='wires'){const box=document.getElementById('wires-game');let first=null;['🔴','🔵','🟡'].forEach((col,i)=>{const a=document.createElement('button');a.className='wire';a.textContent=col;a.dataset.c=col;a.onclick=()=>{if(!first){first=a;msg.textContent='Ora tocca la presa dello stesso colore.'}else{if(first.dataset.c===a.dataset.c&&first!==a){msg.textContent='✓ Collegamento riuscito.';setTimeout(advance,550)}else{msg.textContent='✗ Colori diversi. Riprova.';first=null}}};box.appendChild(a);const p=document.createElement('button');p.className='socket';p.textContent='🔌'+col;p.dataset.c=col;p.onclick=()=>{if(first&&first.dataset.c===p.dataset.c){first.disabled=true;p.disabled=true;msg.textContent='✓ Collegamento riuscito.';first=null;setTimeout(advance,550)}else if(first)msg.textContent='✗ Presa sbagliata.'};box.appendChild(p)})}
+  if(g==='tapstorm'){let n=0;const b=document.getElementById('tapstorm');b.onclick=()=>{n++;b.textContent=['TOCCA','ANCORA','SICURO?','DAVVERO?','ULTIMO?'][Math.min(n,4)];msg.textContent=n+' / 5';if(n>=5){b.textContent='✓ OK';setTimeout(()=>advance(token),500)}}}
+  if(g==='sort'){const items=[['🪶','PIUMA',1],['📱','TELEFONO',2],['🧱','MATTONE',3]],box=document.getElementById('sort-game');let n=1;items.sort(()=>Math.random()-.5);items.forEach(x=>{const b=document.createElement('button');b.className='sort-item';b.innerHTML='<span>'+x[0]+'</span>'+x[1];b.onclick=()=>{if(x[2]===n){b.classList.add('picked');n++;if(n===4){msg.textContent='✓ Ordine corretto.';setTimeout(()=>advance(token),550)}}else{msg.textContent='✗ Troppo presto. Guarda il peso.'}};box.appendChild(b)})}
+  if(g==='math'){document.querySelectorAll('#math-options button').forEach(b=>b.onclick=()=>{const msg=document.getElementById('mini-msg');if(b.dataset.a==='9'){b.classList.add('picked');msg.textContent='✓ Matematica accettata.';setTimeout(()=>advance(token),550)}else{b.classList.add('bad');msg.textContent='✗ No. Il sistema ti giudica.'}})}
+  if(g==='battery'){let seq=[];document.querySelectorAll('.battery-poles button').forEach(b=>b.onclick=()=>{seq.push(b.dataset.p);if(seq.length===1&&seq[0]==='minus')msg.textContent='Bene. Ora +.';else if(seq.length===2&&seq.join(',')==='minus,plus'){msg.textContent='✓ Energia ripristinata.';setTimeout(()=>advance(token),550)}else{seq=[];msg.textContent='✗ Hai collegato tutto al contrario. Riprova.'}})}
+  if(g==='catch'){const area=document.getElementById('catch-game');let n=0;const spawn=()=>{const b=document.createElement('button');b.className='raindrop';b.textContent='💧';b.style.left=(8+Math.random()*80)+'%';b.style.top=(8+Math.random()*76)+'%';b.onclick=()=>{n++;b.remove();msg.textContent=n+' / 6';if(n<6)spawn();else{msg.textContent='✓ Pioggia terminata.';setTimeout(()=>advance(token),500)}};area.appendChild(b)};spawn();spawn()}
+  if(g==='switches'){const box=document.getElementById('switch-game'),state=[0,0,0,0];[0,1,0,1].forEach((_,i)=>{const b=document.createElement('button');b.className='switch';b.textContent='OFF';b.onclick=()=>{state[i]^=1;b.textContent=state[i]?'ON':'OFF';if(state.join(',')==='1,0,1,0'){msg.textContent='✓ Configurazione corretta.';setTimeout(()=>advance(token),550)}};box.appendChild(b)})}
+  if(g==='balance'){document.querySelectorAll('.balance-buttons button').forEach(b=>b.onclick=()=>{if(b.dataset.a==='right'){msg.textContent='✓ Destra pesa di più.';setTimeout(()=>advance(token),550)}else msg.textContent='✗ La sinistra sta chiaramente mentendo.'})}
+  if(g==='word'){const words=['BANANA','MELA','PERA','SERVER'];const box=document.getElementById('word-game');words.sort(()=>Math.random()-.5);words.forEach(w=>{const b=document.createElement('button');b.className='word-item';b.textContent=w;b.onclick=()=>{if(w==='SERVER'){b.classList.add('picked');msg.textContent='✓ Hai trovato l’intruso.';setTimeout(()=>advance(token),550)}else msg.textContent='✗ Quella è frutta. Riprova.'};box.appendChild(b)})}
+  if(g==='maze'){const board=document.getElementById('maze-board');let x=0,y=0;const draw=()=>{board.innerHTML='';for(let j=0;j<4;j++)for(let i=0;i<4;i++){const c=document.createElement('div');c.className='maze-cell';c.textContent=(i===x&&j===y)?'●':(i===3&&j===3)?'★':'';board.appendChild(c)}};draw();document.querySelectorAll('.maze-controls button').forEach(b=>b.onclick=()=>{const m=b.dataset.m;if(m==='up')y=Math.max(0,y-1);if(m==='down')y=Math.min(3,y+1);if(m==='left')x=Math.max(0,x-1);if(m==='right')x=Math.min(3,x+1);draw();if(x===3&&y===3){msg.textContent='✓ Uscita raggiunta.';setTimeout(()=>advance(token),550)}})}
+  if(g==='slider'){const sl=document.getElementById('precision-slider'),val=document.querySelector('.slider-value');sl.oninput=()=>val.textContent=sl.value+'%';document.getElementById('slider-ok').onclick=()=>{if(Number(sl.value)===73){msg.textContent='✓ Precisione perfetta.';setTimeout(()=>advance(token),550)}else msg.textContent='✗ 73%. Non 72. Non 74.'}}
+  if(g==='lights'){const box=document.getElementById('lights-game'),state=Array(6).fill(1);for(let i=0;i<6;i++){const b=document.createElement('button');b.className='light on';b.textContent='💡';b.onclick=()=>{state[i]^=1;b.classList.toggle('on');b.textContent=state[i]?'💡':'⚫';if(!state.includes(1)){msg.textContent='✓ Buio totale. Ottimo.';setTimeout(()=>advance(token),550)}};box.appendChild(b)}}
+  if(g==='cups'){const box=document.getElementById('cups-game');let ball=Math.floor(Math.random()*3);for(let i=0;i<3;i++){const b=document.createElement('button');b.className='cup';b.textContent='🥤';b.dataset.i=i;b.onclick=()=>{if(Number(b.dataset.i)===ball){b.textContent='🥤🔴';msg.textContent='✓ Trovata.';setTimeout(()=>advance(token),650)}else{b.textContent='🥤';msg.textContent='✗ No. La pallina non era lì.'}};box.appendChild(b)}setTimeout(()=>{msg.textContent='Mescola... fatto. Scegli.'},700)}
+  if(g==='riddle'){document.querySelectorAll('#riddle-options button').forEach(b=>b.onclick=()=>{if(b.dataset.a==='sedia'){msg.textContent='✓ Risposta accettata.';setTimeout(()=>advance(token),550)}else msg.textContent='✗ No. Le altre opzioni non hanno quattro gambe utili.'})}
+  if(g==='drag'){const item=document.getElementById('key-drag'),drop=document.getElementById('lock-drop');let dragging=false;const start=e=>{dragging=true;e.preventDefault()};const move=e=>{if(!dragging)return;const p=e.touches?e.touches[0]:e;item.style.left=(p.clientX-item.parentElement.getBoundingClientRect().left-25)+'px';item.style.top=(p.clientY-item.parentElement.getBoundingClientRect().top-25)+'px'};const end=()=>{if(!dragging)return;dragging=false;const a=item.getBoundingClientRect(),b=drop.getBoundingClientRect();if(!(a.right<b.left||a.left>b.right||a.bottom<b.top||a.top>b.bottom)){msg.textContent='✓ Serratura aperta.';setTimeout(()=>advance(token),550)}else{item.style.left='18px';item.style.top='50%';msg.textContent='✗ Quasi. Portala nella serratura.'}};item.addEventListener('mousedown',start);item.addEventListener('touchstart',start,{passive:false});window.addEventListener('mousemove',move);window.addEventListener('touchmove',move,{passive:false});window.addEventListener('mouseup',end);window.addEventListener('touchend',end)}
+  if(g==='safe'){let current=0,step=0;document.querySelectorAll('.safe-buttons button').forEach(b=>b.onclick=()=>{current=(current+(b.dataset.d==='+'?1:9))%10;document.getElementById('safe-dial').textContent=current;if([3,1,7][step]===current){step++;if(step===3){msg.textContent='✓ Cassaforte aperta.';setTimeout(()=>advance(token),650)}else msg.textContent='✓ Ora cerca il prossimo numero.'}else if(current===[3,1,7][step]){}else if(step>0){}})}
+  if(g==='wires'){const box=document.getElementById('wires-game');let first=null;['🔴','🔵','🟡'].forEach((col,i)=>{const a=document.createElement('button');a.className='wire';a.textContent=col;a.dataset.c=col;a.onclick=()=>{if(!first){first=a;msg.textContent='Ora tocca la presa dello stesso colore.'}else{if(first.dataset.c===a.dataset.c&&first!==a){msg.textContent='✓ Collegamento riuscito.';setTimeout(()=>advance(token),550)}else{msg.textContent='✗ Colori diversi. Riprova.';first=null}}};box.appendChild(a);const p=document.createElement('button');p.className='socket';p.textContent='🔌'+col;p.dataset.c=col;p.onclick=()=>{if(first&&first.dataset.c===p.dataset.c){first.disabled=true;p.disabled=true;msg.textContent='✓ Collegamento riuscito.';first=null;setTimeout(()=>advance(token),550)}else if(first)msg.textContent='✗ Presa sbagliata.'};box.appendChild(p)})}
  }
 
  if(d.type==='wait'){
   let remaining=d.seconds;const t=document.getElementById('wait-text');
-  const timer=setInterval(()=>{remaining--;if(remaining>0)t.textContent='Analisi in corso... '+remaining;else{clearInterval(timer);t.textContent='Analisi completata. In realtà non stavamo facendo niente.';setTimeout(advance,900)}},1000)
+  const timerToken=token;const timer=setInterval(()=>{if(timerToken!==renderToken){clearInterval(timer);return}remaining--;if(remaining>0)t.textContent='Analisi in corso... '+remaining;else{clearInterval(timer);t.textContent='Analisi completata. In realtà non stavamo facendo niente.';setTimeout(()=>advance(timerToken),900)}},1000)
  }
 }
 if(level>=levels.length)level=0;
