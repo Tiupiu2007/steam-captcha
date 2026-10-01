@@ -263,10 +263,23 @@ function render(){
  }
  if(d.type==='moving'){
   const b=document.getElementById('moving-button');let moves=0;
-  const move=()=>{if(moves<5){moves++;b.style.left=(10+Math.random()*75)+'%';b.style.top=(10+Math.random()*70)+'%'}else{b.onclick=advance}};
+  const move=()=>{
+    if(moves>=5)return;
+    moves++;
+    b.style.left=(10+Math.random()*75)+'%';
+    b.style.top=(10+Math.random()*70)+'%';
+    if(moves===5){
+      b.textContent='CONTINUA';
+      b.classList.add('ready');
+    }
+  };
   b.addEventListener('mouseenter',move);
-  b.addEventListener('touchstart',e=>{if(moves<5){e.preventDefault();move()}else{e.preventDefault();advance(token)}},{passive:false});
-  b.onclick=()=>{if(moves>=5)advance()};
+  b.addEventListener('touchstart',e=>{
+    e.preventDefault();
+    if(moves<5)move();
+    else advance(token);
+  },{passive:false});
+  b.onclick=()=>{if(moves>=5)advance(token)};
  }
  if(d.type==='fake'){document.getElementById('trap').onclick=()=>{document.getElementById('trap-msg').textContent=d.wrong;document.getElementById('trap').textContent='...ok, puoi passare';setTimeout(()=>advance(token),950)}}
  if(d.type==='choice')document.querySelectorAll('.choice').forEach(b=>b.onclick=advance);
