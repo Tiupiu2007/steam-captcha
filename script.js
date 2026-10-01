@@ -27,14 +27,14 @@ const levels=[
 {type:'wait',title:'Verifica della pazienza',text:'Non fare niente. Il sistema sta pensando.',seconds:4},
 {type:'captcha',title:'Il sistema ha cambiato idea',text:'Ok, puoi cliccare.',label:'Clicca qui per favore',weird:true},
 
-{type:'captcha',title:'Controllo 16',text:'Ancora una verifica.',label:'Non sono un robot',weird:true},
-{type:'captcha',title:'Controllo 17',text:'Siamo quasi sicuramente sicuri.',label:'Non sono un robot',weird:true},
-{type:'captcha',title:'Controllo 18',text:'Grazie per la collaborazione. Crediamo.',label:'Non sono un robot',weird:true},
+{type:'mini',game:'tapstorm',title:'Controllo di pazienza',text:'Tocca il pulsante cinque volte. Ogni volta cambierà idea.',weird:true},
+{type:'mini',game:'sort',title:'Controllo dell’ordine',text:'Metti gli oggetti in ordine dal più leggero al più pesante.',weird:true},
+{type:'mini',game:'math',title:'Controllo matematico',text:'Una domanda di matematica assolutamente necessaria.',weird:true},
 
 {type:'intermission',title:'Una domanda',text:'Ma tu... non hai altro da fare?',message:'Hai intenzione di abbandonare questa verifica?',choices:['Sì','No','Forse','Non lo so','Preferisco continuare'],correct:1},
 
 {type:'target',title:'Verifica di precisione',text:'Tocca tutti i bersagli prima che il sistema perda la pazienza.',count:4,weird:true},
-{type:'captcha',title:'Verifica 21',text:'Questa volta davvero.',label:'NON SONO UN ROBOT',weird:true},
+{type:'mini',game:'battery',title:'Controllo energetico',text:'Il sistema ha perso energia. Riattiva il collegamento corretto.',weird:true},
 {type:'fake',title:'IMPORTANTE',text:'Non premere il pulsante.',label:'Premimi',wrong:'Grazie. Era esattamente quello che non dovevi fare.'},
 {type:'captcha',title:'Conseguenze',text:'A causa della verifica precedente, serve un altro CAPTCHA.',label:'Non sono un robot',weird:true},
 
@@ -45,37 +45,37 @@ const levels=[
 {type:'intermission',title:'PAUSA',text:'Fermati un secondo.',message:'Respira. Guarda fuori dalla finestra. Ricorda che tutto questo è per una verifica di sicurezza.',choices:['Ho bisogno di una pausa','Non mi interessa','Sì','No, continuiamo','Ho fatto una scelta di vita discutibile'],correct:3},
 
 {type:'captcha',title:'Dopo la pausa',text:'Bentornato. Il CAPTCHA ti stava aspettando.',label:'Non sono un robot',weird:true},
-{type:'captcha',title:'Verifica 27',text:'Il sistema non ha commenti.',label:'Non sono un robot',weird:true},
+{type:'mini',game:'catch',title:'Controllo meteorologico',text:'Tocca tutte le gocce prima che spariscano.',weird:true},
 {type:'memory',title:'Verifica della memoria',text:'Memorizza la sequenza. Il sistema non accetta scuse.',weird:true},
 {type:'moving',title:'Ancora lui',text:'Il pulsante ha deciso di non collaborare.',label:'CLICCAMI',weird:true},
 
 {type:'intermission',title:'Avviso del personale',text:'Un tecnico ha chiesto di comunicarti una cosa.',message:'“Basta CAPTCHA.” Il tecnico è stato ignorato dal sistema.',choices:['Ascolto il tecnico','Continuo','Forse ascolto','Non ho mai ascoltato un tecnico','Continuare contro ogni buon senso'],correct:4},
 
-{type:'captcha',title:'Verifica 31',text:'Il tecnico non conta.',label:'Non sono un robot',weird:true},
+{type:'mini',game:'switches',title:'Controllo degli interruttori',text:'Imposta gli interruttori esattamente come richiesto.',weird:true},
 {type:'fake',title:'Quasi finito',text:'Questa è probabilmente l’ultima verifica.',label:'PROBABILMENTE L’ULTIMO',wrong:'“Probabilmente” non è una garanzia.'},
-{type:'captcha',title:'Verifica 33',text:'Era una garanzia pessima.',label:'Non sono un robot',weird:true},
-{type:'captcha',title:'Verifica 34',text:'Sei ancora qui.',label:'Non sono un robot',weird:true},
+{type:'mini',game:'balance',title:'Controllo dell’equilibrio',text:'Quale lato pesa di più? Il sistema vuole una risposta.',weird:true},
+{type:'mini',game:'word',title:'Controllo linguistico',text:'Trova la parola che non c’entra niente.',weird:true},
 
 {type:'intermission',title:'Test psicologico definitivo',text:'Cosa stai pensando in questo preciso momento?',message:'Scegli la risposta che descrive meglio la situazione.',choices:['Ma quanto manca?','Voglio sapere quanto manca','Perché ho iniziato?','Tutte e tre contemporaneamente','Non lo so più'],correct:3},
 
 {type:'intermission',title:'Risultato del test',text:'Abbiamo analizzato la tua risposta.',message:'Diagnosi: continui a cliccare.',choices:['Sì','No','Forse','Non è una diagnosi','Accetto il mio destino'],correct:4},
 
-{type:'captcha',title:'Verifica 37',text:'Il tuo destino richiede un CAPTCHA.',label:'Non sono un robot',weird:true},
-{type:'captcha',title:'Verifica 38',text:'Sì.',label:'Non sono un robot',weird:true},
+{type:'mini',game:'maze',title:'Controllo di navigazione',text:'Porta il punto blu fino all’uscita usando i pulsanti.',weird:true},
+{type:'mini',game:'slider',title:'Controllo di precisione',text:'Porta il cursore esattamente nella zona indicata.',weird:true},
 {type:'reaction',title:'Verifica dei riflessi',text:'Aspetta che il riquadro diventi verde, poi toccalo immediatamente.',weird:true},
 {type:'wait',title:'Controllo finale finale',text:'Questa volta non scherziamo.',seconds:3},
 {type:'captcha',title:'Verifica finale',text:'Errore. Non era quella finale.',label:'Non sono un robot',weird:true},
-{type:'captcha',title:'Verifica finale 2',text:'Adesso dovrebbe essere quella finale.',label:'Non sono un robot',weird:true},
+{type:'mini',game:'lights',title:'Controllo delle luci',text:'Spegni tutte le luci. Nessuna domanda sul perché.',weird:true},
 
 {type:'intermission',title:'ULTIMO AVVISO',text:'Il sistema sta diventando stanco.',message:'Anche il server vuole sapere quando finirai.',choices:['Andiamo avanti','No','Forse','Il server può aspettare','Andiamo avanti, ormai'],correct:4},
 
-{type:'captcha',title:'Verifica 44',text:'Il server ringrazia.',label:'Non sono un robot',weird:true},
-{type:'captcha',title:'Verifica 45',text:'Non c’è più niente da dire.',label:'Non sono un robot',weird:true},
+{type:'mini',game:'cups',title:'Controllo dei bicchieri',text:'Segui il bicchiere con la pallina. Il sistema giura di non barare.',weird:true},
+{type:'mini',game:'riddle',title:'Controllo del buonsenso',text:'Risolvi l’enigma più inutile della giornata.',weird:true},
 {type:'fake',title:'ULTIMISSIMO CAPTCHA',text:'Premi e sarà finita.',label:'FALLO FINIRE',wrong:'No. C’era ancora un CAPTCHA.'},
-{type:'captcha',title:'Verifica 47',text:'...seriamente?',label:'Non sono un robot',weird:true},
+{type:'mini',game:'drag',title:'Controllo della consegna',text:'Trascina la chiave nella serratura. Anche il dito va bene.',weird:true},
 {type:'odd',title:'Analisi visiva',text:'Una casella non appartiene alle altre. Trovala.',weird:true},
-{type:'captcha',title:'Verifica 49',text:'Basta.',label:'Non sono un robot',weird:true},
-{type:'captcha',title:'Verifica 50',text:'Sei arrivato fino a qui. Questa volta clicca.',label:'NON SONO UN ROBOT',weird:true},
+{type:'mini',game:'safe',title:'Controllo della cassaforte',text:'Gira la manopola fino alla combinazione indicata.',weird:true},
+{type:'mini',game:'wires',title:'Controllo dei cavi',text:'Collega il cavo alla presa dello stesso colore.',weird:true},
 {type:'final'}
 ];
 
@@ -99,6 +99,27 @@ function captcha(label){
  return '<div class="captcha"><div class="check-row" id="captcha-click"><span class="checkbox" id="box"></span><span>'+label+'</span></div><div class="recaptcha-logo"><strong>↻</strong>human<br>verification</div></div>';
 }
 
+function miniMarkup(d){
+ const g=d.game;
+ if(g==='tapstorm')return '<div class="mini-panel"><button class="big-mini-button" id="tapstorm">TOCCA</button><div id="mini-msg" class="mini-msg">0 / 5</div></div>';
+ if(g==='sort')return '<div class="sort-game" id="sort-game"></div><div id="mini-msg" class="mini-msg">Parti dal più leggero.</div>';
+ if(g==='math')return '<div class="math-card"><strong>7 + 6 − 4 = ?</strong><div class="math-options" id="math-options"><button data-a="8">8</button><button data-a="9">9</button><button data-a="10">10</button></div></div><div id="mini-msg" class="mini-msg"></div>';
+ if(g==='battery')return '<div class="battery-game"><div class="battery-icon">🔋</div><div class="battery-poles"><button data-p="minus">−</button><button data-p="plus">+</button></div><div id="mini-msg" class="mini-msg">Tocca − poi +.</div></div>';
+ if(g==='catch')return '<div class="catch-game" id="catch-game"></div><div id="mini-msg" class="mini-msg">0 / 6</div>';
+ if(g==='switches')return '<div class="switch-game" id="switch-game"></div><div id="mini-msg" class="mini-msg">Deve diventare: ON · OFF · ON · OFF</div>';
+ if(g==='balance')return '<div class="balance-game"><div class="weights"><span>🍉 × 2</span><b>VS</b><span>🍎 × 7</span></div><div class="balance-buttons"><button data-a="left">SINISTRA</button><button data-a="right">DESTRA</button></div></div><div id="mini-msg" class="mini-msg"></div>';
+ if(g==='word')return '<div class="word-game" id="word-game"></div><div id="mini-msg" class="mini-msg">Una parola è fuori posto.</div>';
+ if(g==='maze')return '<div class="maze-game"><div id="maze-board" class="maze-board"></div><div class="maze-controls"><button data-m="up">▲</button><div><button data-m="left">◀</button><button data-m="down">▼</button><button data-m="right">▶</button></div></div></div><div id="mini-msg" class="mini-msg">Porta ● fino a ★.</div>';
+ if(g==='slider')return '<div class="slider-game"><div class="slider-value">73%</div><input id="precision-slider" type="range" min="0" max="100" value="0"><button class="action" id="slider-ok">CONFERMA</button></div><div id="mini-msg" class="mini-msg">Imposta esattamente 73%.</div>';
+ if(g==='lights')return '<div class="lights-game" id="lights-game"></div><div id="mini-msg" class="mini-msg">Spegni tutto.</div>';
+ if(g==='cups')return '<div class="cups-game" id="cups-game"></div><div id="mini-msg" class="mini-msg">La pallina è sotto un bicchiere.</div>';
+ if(g==='riddle')return '<div class="riddle-game"><div class="riddle">Cosa ha quattro gambe ma non cammina?</div><div class="riddle-options" id="riddle-options"><button data-a="sedia">Una sedia</button><button data-a="cane">Un cane</button><button data-a="robot">Un robot</button></div></div><div id="mini-msg" class="mini-msg"></div>';
+ if(g==='drag')return '<div class="drag-game"><div id="key-drag" class="drag-item">🔑</div><div id="lock-drop" class="lock-drop">🔒</div></div><div id="mini-msg" class="mini-msg">Porta la chiave nella serratura.</div>';
+ if(g==='safe')return '<div class="safe-game"><div class="safe-dial" id="safe-dial">0</div><div class="safe-buttons"><button data-d="-">−</button><button data-d="+">+</button></div><div class="safe-code">Codice: 3 → 1 → 7</div></div><div id="mini-msg" class="mini-msg">Raggiungi 3, poi 1, poi 7.</div>';
+ if(g==='wires')return '<div class="wires-game" id="wires-game"></div><div id="mini-msg" class="mini-msg">Tocca prima un cavo, poi la presa dello stesso colore.</div>';
+ return '';
+}
+
 function render(){
  const d=levels[level];
  if(!d||d.final){
@@ -107,7 +128,7 @@ function render(){
    document.getElementById('again').onclick=reset;return;
  }
  statusEl.textContent=level<6?'SECURE CONNECTION':level<20?'ADDITIONAL SECURITY CHECK':'SYSTEM ANALYSIS';
- let body='<div class="card '+(d.weird?'weird':'')+'"><div class="small">HUMAN VERIFICATION</div><h1>'+d.title+'</h1><p>'+d.text+'</p>';
+ let body='<div class="card '+(d.weird?'weird':'')+'"><div class="talk-box"><div class="talk-name">NOOR</div><div id="talk-text"></div></div><div class="small">HUMAN VERIFICATION</div><h1>'+d.title+'</h1><p>'+d.text+'</p>';
  if(d.type==='captcha')body+=captcha(d.label);
  if(d.type==='intermission'){
    body+='<div class="message dramatic">'+d.message+'</div>';
@@ -127,7 +148,10 @@ function render(){
  if(d.type==='memory')body+='<div class="memory-game" id="memory-game"></div><div id="memory-msg" class="mini-msg">Osserva la sequenza...</div>';
  if(d.type==='reaction')body+='<button class="reaction-game" id="reaction-game">ATTENDI...</button><div id="reaction-msg" class="mini-msg">Il sistema sta aspettando.</div>';
  if(d.type==='odd')body+='<div class="odd-game" id="odd-game"></div><div id="odd-msg" class="mini-msg">Trova quello diverso.</div>';
+ if(d.type==='mini')body+=miniMarkup(d);
  body+='</div>';app.innerHTML=body;
+ const talk=document.getElementById('talk-text');if(talk){const txt=dialogueFor(level);let ti=0;talk.textContent='';const typer=setInterval(()=>{talk.textContent+=txt[ti++]||'';if(ti>=txt.length)clearInterval(typer)},24);}
+
  if(d.type==='captcha'){document.getElementById('captcha-click').onclick=()=>{document.getElementById('box').classList.add('done');document.getElementById('box').textContent='✓';setTimeout(advance,300)}}
  if(d.type==='intermission'){
    if(d.choices){
@@ -196,6 +220,27 @@ function render(){
   const grid=document.getElementById('odd-game'),msg=document.getElementById('odd-msg');const odd=Math.floor(Math.random()*9);
   for(let i=0;i<9;i++){const b=document.createElement('button');b.className='odd-cell';b.textContent=i===odd?'🔧':'🔩';b.onclick=()=>{if(i===odd){b.classList.add('correct');msg.textContent='✓ Elemento anomalo identificato.';setTimeout(advance,600)}else{b.classList.add('wrong');msg.textContent='✗ No. Quello era perfettamente normale.'}};grid.appendChild(b)}
  }
+
+ if(d.type==='mini'){
+  const msg=document.getElementById('mini-msg'),g=d.game;
+  if(g==='tapstorm'){let n=0;const b=document.getElementById('tapstorm');b.onclick=()=>{n++;b.textContent=['TOCCA','ANCORA','SICURO?','DAVVERO?','ULTIMO?'][Math.min(n,4)];msg.textContent=n+' / 5';if(n>=5){b.textContent='✓ OK';setTimeout(advance,500)}}}
+  if(g==='sort'){const items=[['🪶','PIUMA',1],['📱','TELEFONO',2],['🧱','MATTONE',3]],box=document.getElementById('sort-game');let n=1;items.sort(()=>Math.random()-.5);items.forEach(x=>{const b=document.createElement('button');b.className='sort-item';b.innerHTML='<span>'+x[0]+'</span>'+x[1];b.onclick=()=>{if(x[2]===n){b.classList.add('picked');n++;if(n===4){msg.textContent='✓ Ordine corretto.';setTimeout(advance,550)}}else{msg.textContent='✗ Troppo presto. Guarda il peso.'}};box.appendChild(b)})}
+  if(g==='math'){document.querySelectorAll('#math-options button').forEach(b=>b.onclick=()=>{const msg=document.getElementById('mini-msg');if(b.dataset.a==='9'){b.classList.add('picked');msg.textContent='✓ Matematica accettata.';setTimeout(advance,550)}else{b.classList.add('bad');msg.textContent='✗ No. Il sistema ti giudica.'}})}
+  if(g==='battery'){let seq=[];document.querySelectorAll('.battery-poles button').forEach(b=>b.onclick=()=>{seq.push(b.dataset.p);if(seq.length===1&&seq[0]==='minus')msg.textContent='Bene. Ora +.';else if(seq.length===2&&seq.join(',')==='minus,plus'){msg.textContent='✓ Energia ripristinata.';setTimeout(advance,550)}else{seq=[];msg.textContent='✗ Hai collegato tutto al contrario. Riprova.'}})}
+  if(g==='catch'){const area=document.getElementById('catch-game');let n=0;const spawn=()=>{const b=document.createElement('button');b.className='raindrop';b.textContent='💧';b.style.left=(8+Math.random()*80)+'%';b.style.top=(8+Math.random()*76)+'%';b.onclick=()=>{n++;b.remove();msg.textContent=n+' / 6';if(n<6)spawn();else{msg.textContent='✓ Pioggia terminata.';setTimeout(advance,500)}};area.appendChild(b)};spawn();spawn()}
+  if(g==='switches'){const box=document.getElementById('switch-game'),state=[0,0,0,0];[0,1,0,1].forEach((_,i)=>{const b=document.createElement('button');b.className='switch';b.textContent='OFF';b.onclick=()=>{state[i]^=1;b.textContent=state[i]?'ON':'OFF';if(state.join(',')==='1,0,1,0'){msg.textContent='✓ Configurazione corretta.';setTimeout(advance,550)}};box.appendChild(b)})}
+  if(g==='balance'){document.querySelectorAll('.balance-buttons button').forEach(b=>b.onclick=()=>{if(b.dataset.a==='right'){msg.textContent='✓ Destra pesa di più.';setTimeout(advance,550)}else msg.textContent='✗ La sinistra sta chiaramente mentendo.'})}
+  if(g==='word'){const words=['BANANA','MELA','PERA','SERVER'];const box=document.getElementById('word-game');words.sort(()=>Math.random()-.5);words.forEach(w=>{const b=document.createElement('button');b.className='word-item';b.textContent=w;b.onclick=()=>{if(w==='SERVER'){b.classList.add('picked');msg.textContent='✓ Hai trovato l’intruso.';setTimeout(advance,550)}else msg.textContent='✗ Quella è frutta. Riprova.'};box.appendChild(b)})}
+  if(g==='maze'){const board=document.getElementById('maze-board');let x=0,y=0;const draw=()=>{board.innerHTML='';for(let j=0;j<4;j++)for(let i=0;i<4;i++){const c=document.createElement('div');c.className='maze-cell';c.textContent=(i===x&&j===y)?'●':(i===3&&j===3)?'★':'';board.appendChild(c)}};draw();document.querySelectorAll('.maze-controls button').forEach(b=>b.onclick=()=>{const m=b.dataset.m;if(m==='up')y=Math.max(0,y-1);if(m==='down')y=Math.min(3,y+1);if(m==='left')x=Math.max(0,x-1);if(m==='right')x=Math.min(3,x+1);draw();if(x===3&&y===3){msg.textContent='✓ Uscita raggiunta.';setTimeout(advance,550)}})}
+  if(g==='slider'){const sl=document.getElementById('precision-slider'),val=document.querySelector('.slider-value');sl.oninput=()=>val.textContent=sl.value+'%';document.getElementById('slider-ok').onclick=()=>{if(Number(sl.value)===73){msg.textContent='✓ Precisione perfetta.';setTimeout(advance,550)}else msg.textContent='✗ 73%. Non 72. Non 74.'}}
+  if(g==='lights'){const box=document.getElementById('lights-game'),state=Array(6).fill(1);for(let i=0;i<6;i++){const b=document.createElement('button');b.className='light on';b.textContent='💡';b.onclick=()=>{state[i]^=1;b.classList.toggle('on');b.textContent=state[i]?'💡':'⚫';if(!state.includes(1)){msg.textContent='✓ Buio totale. Ottimo.';setTimeout(advance,550)}};box.appendChild(b)}}
+  if(g==='cups'){const box=document.getElementById('cups-game');let ball=Math.floor(Math.random()*3);for(let i=0;i<3;i++){const b=document.createElement('button');b.className='cup';b.textContent='🥤';b.dataset.i=i;b.onclick=()=>{if(Number(b.dataset.i)===ball){b.textContent='🥤🔴';msg.textContent='✓ Trovata.';setTimeout(advance,650)}else{b.textContent='🥤';msg.textContent='✗ No. La pallina non era lì.'}};box.appendChild(b)}setTimeout(()=>{msg.textContent='Mescola... fatto. Scegli.'},700)}
+  if(g==='riddle'){document.querySelectorAll('#riddle-options button').forEach(b=>b.onclick=()=>{if(b.dataset.a==='sedia'){msg.textContent='✓ Risposta accettata.';setTimeout(advance,550)}else msg.textContent='✗ No. Le altre opzioni non hanno quattro gambe utili.'})}
+  if(g==='drag'){const item=document.getElementById('key-drag'),drop=document.getElementById('lock-drop');let dragging=false;const start=e=>{dragging=true;e.preventDefault()};const move=e=>{if(!dragging)return;const p=e.touches?e.touches[0]:e;item.style.left=(p.clientX-item.parentElement.getBoundingClientRect().left-25)+'px';item.style.top=(p.clientY-item.parentElement.getBoundingClientRect().top-25)+'px'};const end=()=>{if(!dragging)return;dragging=false;const a=item.getBoundingClientRect(),b=drop.getBoundingClientRect();if(!(a.right<b.left||a.left>b.right||a.bottom<b.top||a.top>b.bottom)){msg.textContent='✓ Serratura aperta.';setTimeout(advance,550)}else{item.style.left='18px';item.style.top='50%';msg.textContent='✗ Quasi. Portala nella serratura.'}};item.addEventListener('mousedown',start);item.addEventListener('touchstart',start,{passive:false});window.addEventListener('mousemove',move);window.addEventListener('touchmove',move,{passive:false});window.addEventListener('mouseup',end);window.addEventListener('touchend',end)}
+  if(g==='safe'){let current=0,step=0;document.querySelectorAll('.safe-buttons button').forEach(b=>b.onclick=()=>{current=(current+(b.dataset.d==='+'?1:9))%10;document.getElementById('safe-dial').textContent=current;if([3,1,7][step]===current){step++;if(step===3){msg.textContent='✓ Cassaforte aperta.';setTimeout(advance,650)}else msg.textContent='✓ Ora cerca il prossimo numero.'}else if(current===[3,1,7][step]){}else if(step>0){}})}
+  if(g==='wires'){const box=document.getElementById('wires-game');let first=null;['🔴','🔵','🟡'].forEach((col,i)=>{const a=document.createElement('button');a.className='wire';a.textContent=col;a.dataset.c=col;a.onclick=()=>{if(!first){first=a;msg.textContent='Ora tocca la presa dello stesso colore.'}else{if(first.dataset.c===a.dataset.c&&first!==a){msg.textContent='✓ Collegamento riuscito.';setTimeout(advance,550)}else{msg.textContent='✗ Colori diversi. Riprova.';first=null}}};box.appendChild(a);const p=document.createElement('button');p.className='socket';p.textContent='🔌'+col;p.dataset.c=col;p.onclick=()=>{if(first&&first.dataset.c===p.dataset.c){first.disabled=true;p.disabled=true;msg.textContent='✓ Collegamento riuscito.';first=null;setTimeout(advance,550)}else if(first)msg.textContent='✗ Presa sbagliata.'};box.appendChild(p)})}
+ }
+
  if(d.type==='wait'){
   let remaining=d.seconds;const t=document.getElementById('wait-text');
   const timer=setInterval(()=>{remaining--;if(remaining>0)t.textContent='Analisi in corso... '+remaining;else{clearInterval(timer);t.textContent='Analisi completata. In realtà non stavamo facendo niente.';setTimeout(advance,900)}},1000)
