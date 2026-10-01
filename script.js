@@ -265,7 +265,7 @@ function render(){
   const b=document.getElementById('moving-button');let moves=0;
   const move=()=>{if(moves<5){moves++;b.style.left=(10+Math.random()*75)+'%';b.style.top=(10+Math.random()*70)+'%'}else{b.onclick=advance}};
   b.addEventListener('mouseenter',move);
-  b.addEventListener('touchstart',e=>{if(moves<5){e.preventDefault();move()}},{passive:false});
+  b.addEventListener('touchstart',e=>{if(moves<5){e.preventDefault();move()}else{e.preventDefault();advance(token)}},{passive:false});
   b.onclick=()=>{if(moves>=5)advance()};
  }
  if(d.type==='fake'){document.getElementById('trap').onclick=()=>{document.getElementById('trap-msg').textContent=d.wrong;document.getElementById('trap').textContent='...ok, puoi passare';setTimeout(()=>advance(token),950)}}
